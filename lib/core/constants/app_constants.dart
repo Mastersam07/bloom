@@ -8,6 +8,7 @@ class RoutePaths {
   static const String Login = '/login';
   static const String Dashboard = '/home';
   static const String ForgotPassword = '/forgotPassword';
+  static const String SignUpDetails = '/signupDetails';
 }
 
 bool devMode = env['DEBUG'] == 'true' ? true : false;

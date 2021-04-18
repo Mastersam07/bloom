@@ -14,7 +14,7 @@ class Router {
         return MaterialPageRoute(builder: (_) => const SignIn());
       case RoutePaths.SignUp:
         return MaterialPageRoute(builder: (_) => const SignupEntry());
-      case RoutePaths.ForgotPassword:
+      case RoutePaths.SignUpDetails:
         return MaterialPageRoute(builder: (_) => const SignupDetails());
       case RoutePaths.Dashboard:
         return MaterialPageRoute(builder: (_) => const Home());
