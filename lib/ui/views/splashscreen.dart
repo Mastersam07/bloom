@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:bloom/ui/shared/colors.dart';
 import 'package:bloom/ui/shared/styles.dart';
 import 'package:bloom/ui/shared/ui_helpers.dart';
 import 'package:bloom/ui/views/authentication/signup1.dart';
@@ -34,22 +35,26 @@ class _SplashState extends State<Splash> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Image(
-            image: const AssetImage('assets/images/logo.png'),
-            height: screenAwareSize(80, context),
-            width: screenAwareSize(66.68, context),
-          ),
-          SizedBox(
-            height: screenAwareSize(32, context),
-          ),
-          const Text(
-            'Bloom',
-            style: AppTextStyles.display1,
-          )
-        ],
+      backgroundColor: AppColors.backgroundColor,
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          // crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Image(
+              image: const AssetImage('assets/images/logo.png'),
+              height: screenAwareSize(80, context),
+              width: screenAwareSize(66.68, context),
+            ),
+            SizedBox(
+              height: screenAwareSize(32, context),
+            ),
+            const Text(
+              'Bloom',
+              style: AppTextStyles.display1,
+            )
+          ],
+        ),
       ),
     );
   }

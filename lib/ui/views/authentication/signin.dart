@@ -1,3 +1,4 @@
+import 'package:bloom/ui/shared/colors.dart';
 import 'package:bloom/ui/shared/styles.dart';
 import 'package:flutter/material.dart';
 
@@ -6,9 +7,12 @@ class SignIn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Text(
-        'Signin',
-        style: AppTextStyles.bodyRegularMedium,
+      backgroundColor: AppColors.backgroundColor,
+      body: Center(
+        child: Text(
+          'Signin',
+          style: AppTextStyles.bodyRegularMedium,
+        ),
       ),
     );
   }

@@ -6,7 +6,7 @@ import 'core/services/service.dart';
 import 'core/viewmodels/login_model.dart';
 import 'core/viewmodels/signup_model.dart';
 
-GetIt locator = GetIt.instance();
+GetIt locator = GetIt.instance;
 
 void setupLocator() {
   /// register services
