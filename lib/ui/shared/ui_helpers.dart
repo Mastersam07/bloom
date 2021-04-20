@@ -5,6 +5,7 @@ class UIHelper {
   // Vertical spacing constants. Adjust to your liking.
   static const double _VerticalSpaceSmall = 10.0;
   static const double _VerticalSpaceMedium = 30.0;
+  static const double _VerticalSpaceMediumPlus = 48.0;
   static const double _VerticalSpaceLarge = 60.0;
 
   // Vertical spacing constants. Adjust to your liking.
@@ -16,6 +17,8 @@ class UIHelper {
       SizedBox(height: _VerticalSpaceSmall);
   static const Widget verticalSpaceMedium =
       SizedBox(height: _VerticalSpaceMedium);
+  static const Widget verticalSpaceMediumPlus =
+      SizedBox(height: _VerticalSpaceMediumPlus);
   static const Widget verticalSpaceLarge =
       SizedBox(height: _VerticalSpaceLarge);
 
