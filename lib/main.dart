@@ -2,7 +2,6 @@ import 'package:bloom/ui/router.dart';
 import 'package:bloom/ui/shared/colors.dart';
 import 'package:flutter/material.dart' hide Router;
 import 'package:flutter/services.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart' as DotEnv;
 import 'package:provider/provider.dart';
 
 import 'locator.dart';
@@ -10,7 +9,7 @@ import 'ui/views/splashscreen.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await DotEnv.load(fileName: '.env');
+  //await DotEnv.load(fileName: '.env');
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   setupLocator();

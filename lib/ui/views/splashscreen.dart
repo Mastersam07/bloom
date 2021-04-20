@@ -1,10 +1,11 @@
 import 'dart:async';
 
-import 'package:bloom/ui/shared/colors.dart';
-import 'package:bloom/ui/shared/styles.dart';
-import 'package:bloom/ui/shared/ui_helpers.dart';
-import 'package:bloom/ui/views/authentication/signup1.dart';
 import 'package:flutter/material.dart';
+
+import '../shared/colors.dart';
+import '../shared/styles.dart';
+import '../shared/ui_helpers.dart';
+import 'authentication/signup1.dart';
 
 class Splash extends StatefulWidget {
   const Splash({Key key}) : super(key: key);
@@ -14,6 +15,7 @@ class Splash extends StatefulWidget {
 }
 
 class _SplashState extends State<Splash> {
+  @override
   void initState() {
     super.initState();
 

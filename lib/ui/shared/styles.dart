@@ -8,12 +8,12 @@ import 'colors.dart';
 class AppTextStyles {
   static const TextStyle display1 = TextStyle(
     fontWeight: FontWeight.w500,
-    color: AppColors.headingColor,
+    color: AppColors.headingTextColor,
     fontSize: 40,
   );
   static const TextStyle heading1Bold = TextStyle(
     fontWeight: FontWeight.w700,
-    color: AppColors.headingColor,
+    color: AppColors.headingTextColor,
     fontSize: 30,
   );
   static const TextStyle bodyRegularBold = TextStyle(

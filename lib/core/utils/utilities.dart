@@ -1,4 +1,5 @@
 import 'dart:io';
+
 import 'package:intl/intl.dart';
 
 class Utilities {
@@ -30,7 +31,7 @@ class Utilities {
     return formattedDate;
   }
 
-  //convert datetime format to Month, Day and Year
+  ///convert datetime format to Month, Day and Year
   static String dateToYmd(String date) {
     final formatter = DateFormat('yyyy-MM-dd');
     final dateTime = formatter.parse(date);
@@ -39,7 +40,7 @@ class Utilities {
     return formattedDateTime;
   }
 
-  //convert datetime format to Month, Day and Year
+  ///convert datetime format to Month, Day and Year
   static String dayDateAndTime(DateTime date) {
     /*var formatter = new DateFormat('yyyy-MM-dd');
     DateTime dateTime = formatter.parse(date);
@@ -71,7 +72,7 @@ ${DateFormat.EEEE().format(date)}, ${DateFormat.yMMMMd().format(date)}''';
     return DateFormat.MMM().format(date);
   }
 
-  //convert datetime format to Month, Day and Year
+  ///convert datetime format to Month, Day and Year
   static String dateAndTime(DateTime date) {
     return '''
 ${DateFormat.yMMMd().format(date)} ${DateFormat.jms().format(date)}''';
