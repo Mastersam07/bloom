@@ -11,7 +11,7 @@ class Router {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case RoutePaths.Login:
-        print(settings.name);
+        debugPrint(settings.name);
         return MaterialPageRoute(builder: (_) => const SignIn());
       case RoutePaths.SignUp:
         return MaterialPageRoute(builder: (_) => const SignupEntry());

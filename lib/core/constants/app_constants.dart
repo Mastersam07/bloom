@@ -11,6 +11,7 @@ class RoutePaths {
   static const String SignUpDetails = '/signupDetails';
 }
 
+// ignore: avoid_bool_literals_in_conditional_expressions
 bool devMode = env['DEBUG'] == 'true' ? true : false;
 const String username = 'username';
 const String isremember = 'is_remember';

@@ -64,6 +64,32 @@ class _SignupEntryState extends State<SignupEntry> {
             label: 'Next',
           ),
         ),
+        SizedBox(
+          height: screenAwareSize(24, context),
+        ),
+        GestureDetector(
+          onTap: () {
+            Navigator.push(
+                context,
+                router.Router.generateRoute(
+                    const RouteSettings(name: RoutePaths.Login)));
+          },
+          child: RichText(
+            textAlign: TextAlign.center,
+            text: TextSpan(
+              text: 'Have an account?',
+              style: AppTextStyles.bodyRegularLight,
+              children: [
+                TextSpan(
+                  text: ' Log In',
+                  style: AppTextStyles.bodyRegularBold.copyWith(
+                    color: AppColors.yellowColor,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
       ],
     );
   }
@@ -227,30 +253,32 @@ class _SignupEntryState extends State<SignupEntry> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: popScope,
-      child: Scaffold(
-        backgroundColor: AppColors.backgroundColor,
-        body: Padding(
-          padding: EdgeInsets.only(
-            left: screenAwareSize(30, context, width: true),
-            right: screenAwareSize(30, context, width: true),
-            top: screenAwareSize(49, context),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              PageIndicator(
-                width: getIndicatorWidth(),
-              ),
-              SizedBox(
-                height: screenAwareSize(32, context),
-              ),
-              Expanded(
-                  child: [
-                buildPage1(),
-                buildPage2(),
-                buildFinalPage(),
-              ][pageIndex])
-            ],
+      child: SafeArea(
+        child: Scaffold(
+          backgroundColor: AppColors.backgroundColor,
+          body: Padding(
+            padding: EdgeInsets.only(
+              left: screenAwareSize(30, context, width: true),
+              right: screenAwareSize(30, context, width: true),
+              // top: screenAwareSize(49, context),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                PageIndicator(
+                  width: getIndicatorWidth(),
+                ),
+                SizedBox(
+                  height: screenAwareSize(32, context),
+                ),
+                Expanded(
+                    child: [
+                  buildPage1(),
+                  buildPage2(),
+                  buildFinalPage(),
+                ][pageIndex])
+              ],
+            ),
           ),
         ),
       ),

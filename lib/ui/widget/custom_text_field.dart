@@ -1,6 +1,6 @@
-import 'package:bloom/ui/shared/colors.dart';
-import 'package:bloom/ui/shared/styles.dart';
-import 'package:bloom/ui/shared/ui_helpers.dart';
+import '../shared/colors.dart';
+import '../shared/styles.dart';
+import '../shared/ui_helpers.dart';
 import 'package:flutter/material.dart';
 
 class CustomTextFormField extends StatelessWidget {
@@ -63,9 +63,10 @@ class _PasswordFieldState extends State<PasswordField> {
       hintText: widget.hintText,
       suffixIcon: obscure
           ? GestureDetector(
-              onTap: switchObscureIcon, child: Icon(Icons.visibility))
+              onTap: switchObscureIcon, child: const Icon(Icons.visibility))
           : GestureDetector(
-              onTap: switchObscureIcon, child: Icon(Icons.visibility_off)),
+              onTap: switchObscureIcon,
+              child: const Icon(Icons.visibility_off)),
     );
   }
 }

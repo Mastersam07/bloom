@@ -1,7 +1,8 @@
-import 'package:bloom/ui/shared/colors.dart';
-import 'package:bloom/ui/shared/styles.dart';
-import 'package:bloom/ui/shared/ui_helpers.dart';
 import 'package:flutter/material.dart';
+
+import '../shared/colors.dart';
+import '../shared/styles.dart';
+import '../shared/ui_helpers.dart';
 
 class CustomLongButton extends StatelessWidget {
   final double height;
@@ -28,7 +29,7 @@ class CustomLongButton extends StatelessWidget {
         width: double.infinity,
         decoration: BoxDecoration(
           color: color ?? AppColors.headingTextColor,
-          borderRadius: BorderRadius.circular(6),
+          borderRadius: BorderRadius.circular(12),
         ),
         child: Center(
           child: Text(
