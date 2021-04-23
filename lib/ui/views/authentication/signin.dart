@@ -60,7 +60,7 @@ class SignIn extends StatelessWidget {
                   Navigator.push(
                       context,
                       router.Router.generateRoute(
-                          const RouteSettings(name: RoutePaths.Dashboard)));
+                          const RouteSettings(name: RoutePaths.HomeTab)));
                 },
                 label: 'Next',
               ),

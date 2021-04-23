@@ -1,5 +1,5 @@
-import 'package:bloom/ui/shared/colors.dart';
-import 'package:bloom/ui/shared/ui_helpers.dart';
+import '../../shared/colors.dart';
+import '../../shared/ui_helpers.dart';
 import 'package:flutter/material.dart';
 
 import '../account/account.dart';

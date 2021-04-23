@@ -1,3 +1,4 @@
+import 'ui/views/splashscreen.dart';
 import 'package:flutter/material.dart' hide Router;
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -5,11 +6,11 @@ import 'package:provider/provider.dart';
 import 'locator.dart';
 import 'ui/router.dart';
 import 'ui/shared/colors.dart';
-import 'ui/views/dashboard/tab_starter.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart' as DotEnv;
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // await DotEnv.load(fileName: '.env');
+  await DotEnv.load(fileName: '.env');
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   setupLocator();
@@ -34,7 +35,7 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
-        home: const HomeTab(),
+        home: const Splash(),
         onGenerateRoute: Router.generateRoute,
       ),
     );

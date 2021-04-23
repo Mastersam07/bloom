@@ -6,6 +6,7 @@ import 'views/authentication/signin.dart';
 import 'views/authentication/signup1.dart';
 import 'views/authentication/signup2.dart';
 import 'views/dashboard/home.dart';
+import 'views/dashboard/tab_starter.dart';
 
 class Router {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -21,6 +22,8 @@ class Router {
         return MaterialPageRoute(builder: (_) => const Home());
       case RoutePaths.ForgotPassword:
         return MaterialPageRoute(builder: (_) => const ForgotPassword());
+      case RoutePaths.HomeTab:
+        return MaterialPageRoute(builder: (_) => const HomeTab());
       default:
         return MaterialPageRoute(
           builder: (_) => Scaffold(

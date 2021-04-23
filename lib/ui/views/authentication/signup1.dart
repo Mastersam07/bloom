@@ -253,32 +253,30 @@ class _SignupEntryState extends State<SignupEntry> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: popScope,
-      child: SafeArea(
-        child: Scaffold(
-          backgroundColor: AppColors.backgroundColor,
-          body: Padding(
-            padding: EdgeInsets.only(
-              left: screenAwareSize(30, context, width: true),
-              right: screenAwareSize(30, context, width: true),
-              // top: screenAwareSize(49, context),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                PageIndicator(
-                  width: getIndicatorWidth(),
-                ),
-                SizedBox(
-                  height: screenAwareSize(32, context),
-                ),
-                Expanded(
-                    child: [
-                  buildPage1(),
-                  buildPage2(),
-                  buildFinalPage(),
-                ][pageIndex])
-              ],
-            ),
+      child: Scaffold(
+        backgroundColor: AppColors.backgroundColor,
+        body: Padding(
+          padding: EdgeInsets.only(
+            left: screenAwareSize(30, context, width: true),
+            right: screenAwareSize(30, context, width: true),
+            top: screenAwareSize(49, context),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              PageIndicator(
+                width: getIndicatorWidth(),
+              ),
+              SizedBox(
+                height: screenAwareSize(32, context),
+              ),
+              Expanded(
+                  child: [
+                buildPage1(),
+                buildPage2(),
+                buildFinalPage(),
+              ][pageIndex])
+            ],
           ),
         ),
       ),
