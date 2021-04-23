@@ -56,7 +56,12 @@ class SignIn extends StatelessWidget {
                 horizontal: screenAwareSize(40, context, width: true),
               ),
               child: CustomLongButton(
-                onTap: () async {},
+                onTap: () async {
+                  Navigator.push(
+                      context,
+                      router.Router.generateRoute(
+                          const RouteSettings(name: RoutePaths.Dashboard)));
+                },
                 label: 'Next',
               ),
             ),
