@@ -38,3 +38,18 @@ double screenAwareSize(double value, BuildContext context,
     return MediaQuery.of(context).size.height * (value / 896);
   }
 }
+
+const notificationBellIconAsset =
+    AssetImage('assets/images/notification_bell.png');
+
+const handImageAsset = AssetImage('assets/images/hand.png');
+
+const userImageAsset = AssetImage('assets/images/user.png');
+
+const lightningImageAsset = AssetImage('assets/images/lightning.png');
+
+const meterImageAsset = AssetImage('assets/images/meter.png');
+
+const appBGImageAsset = AssetImage('assets/images/appBg.png');
+
+const dashboardImageAsset = AssetImage('assets/images/dashboard.png');
