@@ -122,27 +122,27 @@ class SecureClient {
       switch (method) {
         case HttpMethod.post:
           response = await _client.post(
-            url,
+            Uri.parse(url),
             body: body,
             headers: headers,
           );
           break;
         case HttpMethod.put:
           response = await _client.put(
-            url,
+            Uri.parse(url),
             body: body,
             headers: headers,
           );
           break;
         case HttpMethod.delete:
           response = await _client.delete(
-            url,
+            Uri.parse(url),
             headers: headers,
           );
           break;
         case HttpMethod.get:
           response = await _client.get(
-            url,
+            Uri.parse(url),
             headers: headers,
           );
       }

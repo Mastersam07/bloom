@@ -1,3 +1,4 @@
+import 'core/services/navigation.dart';
 import 'ui/views/splashscreen.dart';
 import 'package:flutter/material.dart' hide Router;
 import 'package:flutter/services.dart';
@@ -36,6 +37,7 @@ class MyApp extends StatelessWidget {
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
         home: const Splash(),
+        navigatorKey: locator<NavigationService>().navigationKey,
         onGenerateRoute: Router.generateRoute,
       ),
     );

@@ -16,9 +16,13 @@ dependencies:
   fl_chart: ^0.35.0
   flutter_dotenv: ^3.1.0
   get_it: ^6.1.1
-  http: ^0.12.0+2
+  http: ^0.13.1
   intl: ^0.17.0
   provider: ^5.0.0
+  rave_flutter:
+    git:
+      url: git://github.com/wilburt/rave_flutter.git
+      ref: flutter-2.0.0-migration
 
 dev_dependencies:
   flutter_test:
