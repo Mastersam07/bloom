@@ -1,3 +1,6 @@
+import 'package:flutterwave/flutterwave.dart';
+import 'package:flutterwave/models/responses/charge_response.dart';
+
 import '../constants/app_constants.dart';
 
 import '../services/navigation.dart';
@@ -32,6 +35,7 @@ class PaymentModel extends BaseModel {
       ..acceptGHMobileMoneyPayments = false
       ..acceptUgMobileMoneyPayments = false
       ..staging = true
+      ..isPreAuth = true
       ..companyName = const Text(
         'Bloom',
         style: TextStyle(fontSize: 14),
@@ -63,10 +67,10 @@ class PaymentModel extends BaseModel {
                   textAlign: TextAlign.center,
                   style: TextStyle(color: Colors.red, fontSize: 20),
                 ),
-                content: const Text(
-                  'An error has occured ',
+                content: Text(
+                  '${result.message}',
                   textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 18),
+                  style: const TextStyle(fontSize: 18),
                 ),
                 actions: [
                   IconButton(
@@ -86,5 +90,56 @@ class PaymentModel extends BaseModel {
     // RaveResult response = await RavePayManager().prompt(
     //     context: _navigatorService.navigationKey.currentContext,
     //     initializer: initializer);
+  }
+
+  Future beginPayment() async {
+    final Flutterwave flutterwave = Flutterwave.forUIPayment(
+        context: _navigatorService.navigationKey.currentContext,
+        publicKey: DotEnv.env['publicKey'],
+        encryptionKey: DotEnv.env['encryptionKey'],
+        currency: 'NGN',
+        amount: '500',
+        email: 'valid@email.com',
+        fullName: 'Valid Full Name',
+        txRef: DateFormat('yyyymmddHMS').format(DateTime.now()),
+        isDebugMode: true,
+        phoneNumber: '0123456789',
+        acceptCardPayment: true,
+        acceptUSSDPayment: false,
+        acceptAccountPayment: false,
+        acceptFrancophoneMobileMoney: false,
+        acceptGhanaPayment: false,
+        acceptMpesaPayment: false,
+        acceptRwandaMoneyPayment: true,
+        acceptUgandaPayment: false,
+        acceptZambiaPayment: false);
+
+    try {
+      final ChargeResponse response =
+          await flutterwave.initializeForUiPayments();
+      if (response == null) {
+        // user didn't complete the transaction.
+      } else {
+        final isSuccessful = checkPaymentIsSuccessful(response);
+        if (isSuccessful) {
+          // provide value to customer
+        } else {
+          // check message
+          print(response.message);
+
+          // check status
+          print(response.status);
+
+          // check processor error
+          print(response.data.processorResponse);
+        }
+      }
+    } catch (error) {
+      // handleError(error);
+    }
+  }
+
+  bool checkPaymentIsSuccessful(final ChargeResponse response) {
+    return response.data.status == FlutterwaveConstants.SUCCESSFUL;
   }
 }

@@ -23,6 +23,7 @@ dependencies:
     git:
       url: git://github.com/wilburt/rave_flutter.git
       ref: flutter-2.0.0-migration
+  flutterwave: 0.0.3-dev.3
 
 dev_dependencies:
   flutter_test:
