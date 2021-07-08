@@ -25,7 +25,7 @@ jobs:
         with:
           flutter-version: ${{ env.flutter_version }}
       - name: check unused files
-      - run: |
+        run: |
             # make file runnable, might not be necessary
             chmod +x "${GITHUB_WORKSPACE}/.github/script.sh"
 
