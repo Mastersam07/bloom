@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
 import '../../../core/constants/app_constants.dart';
+import '../../../core/viewmodels/signup_model.dart';
+import '../../../core/views/view_builder.dart';
+import '../../../locator.dart';
 import '../../router.dart' as router;
 import '../../shared/colors.dart';
 import '../../shared/styles.dart';
@@ -16,8 +19,7 @@ class SignupEntry extends StatefulWidget {
 }
 
 class _SignupEntryState extends State<SignupEntry> {
-  int pageIndex = 0;
-  double getIndicatorWidth() {
+  double getIndicatorWidth(int pageIndex) {
     if (pageIndex == 0) {
       return 118.0;
     } else if (pageIndex == 1) {
@@ -27,7 +29,7 @@ class _SignupEntryState extends State<SignupEntry> {
     }
   }
 
-  Widget buildPage1() {
+  Widget buildPage1(SignupModel model) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       mainAxisSize: MainAxisSize.min,
@@ -48,7 +50,9 @@ class _SignupEntryState extends State<SignupEntry> {
         SizedBox(
           height: screenAwareSize(48, context),
         ),
-        //:todo phoneNumber field goes here
+        const CustomTextFormField(
+          hintText: 'Phone number',
+        ),
         UIHelper.verticalSpaceLarge,
         UIHelper.verticalSpaceMedium,
         Padding(
@@ -57,9 +61,7 @@ class _SignupEntryState extends State<SignupEntry> {
           ),
           child: CustomLongButton(
             onTap: () {
-              setState(() {
-                pageIndex = 1;
-              });
+              model.setPage(1);
             },
             label: 'Next',
           ),
@@ -94,7 +96,7 @@ class _SignupEntryState extends State<SignupEntry> {
     );
   }
 
-  Widget buildPage2() {
+  Widget buildPage2(SignupModel model) {
     return ScrollConfiguration(
       behavior: CustomScrollBehaviour(),
       child: SingleChildScrollView(
@@ -118,20 +120,25 @@ class _SignupEntryState extends State<SignupEntry> {
             SizedBox(
               height: screenAwareSize(48, context),
             ),
-            const CustomTextFormField(
-              hintText: 'Fullname',
+            CustomTextFormField(
+              hintText: 'Full Name',
+              controller: model.fullNameTextController,
             ),
-            const CustomTextFormField(
+            CustomTextFormField(
               hintText: 'Username',
+              controller: model.userNameTextController,
             ),
-            const CustomTextFormField(
+            CustomTextFormField(
               hintText: 'Email Address',
+              controller: model.emailTextController,
             ),
-            const PasswordField(
+            PasswordField(
               hintText: 'Password',
+              controller: model.passwordTextController,
             ),
-            const PasswordField(
+            PasswordField(
               hintText: 'Confirm password',
+              controller: model.confirmPasswordTextController,
             ),
             UIHelper.verticalSpaceLarge,
             Padding(
@@ -140,15 +147,7 @@ class _SignupEntryState extends State<SignupEntry> {
               ),
               child: CustomLongButton(
                 onTap: () async {
-                  setState(() {
-                    pageIndex = 2;
-                  });
-                  Future.delayed(const Duration(seconds: 2), () {
-                    Navigator.push(
-                        context,
-                        router.Router.generateRoute(
-                            const RouteSettings(name: RoutePaths.Login)));
-                  });
+                  model.signUp();
                 },
                 label: 'Next',
               ),
@@ -238,7 +237,7 @@ class _SignupEntryState extends State<SignupEntry> {
     );
   }
 
-  Future<bool> popScope() async {
+  Future<bool> popScope(int pageIndex) async {
     if (pageIndex == 0) {
       return true;
     } else {
@@ -251,36 +250,42 @@ class _SignupEntryState extends State<SignupEntry> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: popScope,
-      child: Scaffold(
-        backgroundColor: AppColors.backgroundColor,
-        body: Padding(
-          padding: EdgeInsets.only(
-            left: screenAwareSize(30, context, width: true),
-            right: screenAwareSize(30, context, width: true),
-            top: screenAwareSize(49, context),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              PageIndicator(
-                width: getIndicatorWidth(),
+    return BaseViewBuilder<SignupModel>(
+        model: locator(),
+        builder: (provider, child) {
+          return WillPopScope(
+            onWillPop: () async {
+              return popScope(provider.currentPage);
+            },
+            child: Scaffold(
+              backgroundColor: AppColors.backgroundColor,
+              body: Padding(
+                padding: EdgeInsets.only(
+                  left: screenAwareSize(30, context, width: true),
+                  right: screenAwareSize(30, context, width: true),
+                  top: screenAwareSize(49, context),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    PageIndicator(
+                      width: getIndicatorWidth(provider.currentPage),
+                    ),
+                    SizedBox(
+                      height: screenAwareSize(32, context),
+                    ),
+                    Expanded(
+                        child: [
+                      buildPage1(provider),
+                      buildPage2(provider),
+                      buildFinalPage(),
+                    ][provider.currentPage])
+                  ],
+                ),
               ),
-              SizedBox(
-                height: screenAwareSize(32, context),
-              ),
-              Expanded(
-                  child: [
-                buildPage1(),
-                buildPage2(),
-                buildFinalPage(),
-              ][pageIndex])
-            ],
-          ),
-        ),
-      ),
-    );
+            ),
+          );
+        });
   }
 }
 

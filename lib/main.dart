@@ -2,7 +2,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart' hide Router;
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart' as DotEnv;
-import 'package:provider/provider.dart';
 
 import 'core/services/navigation.dart';
 import 'locator.dart';
@@ -29,19 +28,16 @@ class MyApp extends StatelessWidget {
         statusBarColor: AppColors.backgroundColor,
         systemNavigationBarColor: AppColors.backgroundColor,
         systemNavigationBarIconBrightness: Brightness.dark));
-    return MultiProvider(
-      providers: allProviders,
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Bloom',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-          visualDensity: VisualDensity.adaptivePlatformDensity,
-        ),
-        home: const Splash(),
-        navigatorKey: locator<NavigationService>().navigationKey,
-        onGenerateRoute: Router.generateRoute,
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Bloom',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
+      home: const Splash(),
+      navigatorKey: locator<NavigationService>().navigationKey,
+      onGenerateRoute: Router.generateRoute,
     );
   }
 }
