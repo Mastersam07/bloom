@@ -18,10 +18,6 @@ class SignupModel extends BaseModel {
   final confirmPasswordTextController = TextEditingController();
   int _pageIndex = 0;
   int get currentPage => _pageIndex;
-  @override
-  void initialize(BuildContext context) {
-    super.initialize(context);
-  }
 
   SignupModel(this.auth);
 
@@ -43,7 +39,7 @@ class SignupModel extends BaseModel {
     } else {
       setPage(2);
       await Future.delayed(const Duration(seconds: 2));
-      NavigationService.navigateToReplacing(RoutePaths.Dashboard);
+      NavigationService.navigateToReplacing(RoutePaths.HomeTab);
     }
   }
 

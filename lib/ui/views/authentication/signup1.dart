@@ -1,3 +1,4 @@
+import 'package:bloom/core/views/view_state_builder.dart';
 import 'package:flutter/material.dart';
 
 import '../../../core/constants/app_constants.dart';
@@ -100,88 +101,91 @@ class _SignupEntryState extends State<SignupEntry> {
     return ScrollConfiguration(
       behavior: CustomScrollBehaviour(),
       child: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const Text(
-              'Sign up',
-              style: AppTextStyles.heading1Bold,
-            ),
-            SizedBox(
-              height: screenAwareSize(3, context),
-            ),
-            Text(
-              'Enter your phone number to start your sign up process',
-              style: AppTextStyles.bodyRegularLight.copyWith(
-                fontSize: screenAwareSize(16, context, width: true),
+        child: ViewStateBuilder(
+          state: model.state,
+          initialWidget: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Text(
+                'Sign up',
+                style: AppTextStyles.heading1Bold,
               ),
-            ),
-            SizedBox(
-              height: screenAwareSize(48, context),
-            ),
-            CustomTextFormField(
-              hintText: 'Full Name',
-              controller: model.fullNameTextController,
-            ),
-            CustomTextFormField(
-              hintText: 'Username',
-              controller: model.userNameTextController,
-            ),
-            CustomTextFormField(
-              hintText: 'Email Address',
-              controller: model.emailTextController,
-            ),
-            PasswordField(
-              hintText: 'Password',
-              controller: model.passwordTextController,
-            ),
-            PasswordField(
-              hintText: 'Confirm password',
-              controller: model.confirmPasswordTextController,
-            ),
-            UIHelper.verticalSpaceLarge,
-            Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: screenAwareSize(40, context, width: true),
+              SizedBox(
+                height: screenAwareSize(3, context),
               ),
-              child: CustomLongButton(
-                onTap: () async {
-                  model.signUp();
-                },
-                label: 'Next',
-              ),
-            ),
-            SizedBox(
-              height: screenAwareSize(25, context),
-            ),
-            GestureDetector(
-              onTap: () {
-                Navigator.push(
-                    context,
-                    router.Router.generateRoute(
-                        const RouteSettings(name: RoutePaths.Login)));
-              },
-              child: RichText(
-                textAlign: TextAlign.center,
-                text: TextSpan(
-                  text: 'Already have an account?',
-                  style: AppTextStyles.bodyRegularLight,
-                  children: [
-                    TextSpan(
-                      text: ' Sign In',
-                      style: AppTextStyles.bodyRegularBold.copyWith(
-                        color: AppColors.yellowColor,
-                      ),
-                    ),
-                  ],
+              Text(
+                'Enter your phone number to start your sign up process',
+                style: AppTextStyles.bodyRegularLight.copyWith(
+                  fontSize: screenAwareSize(16, context, width: true),
                 ),
               ),
-            ),
-            SizedBox(
-              height: screenAwareSize(25, context),
-            ),
-          ],
+              SizedBox(
+                height: screenAwareSize(48, context),
+              ),
+              CustomTextFormField(
+                hintText: 'Full Name',
+                controller: model.fullNameTextController,
+              ),
+              CustomTextFormField(
+                hintText: 'Username',
+                controller: model.userNameTextController,
+              ),
+              CustomTextFormField(
+                hintText: 'Email Address',
+                controller: model.emailTextController,
+              ),
+              PasswordField(
+                hintText: 'Password',
+                controller: model.passwordTextController,
+              ),
+              PasswordField(
+                hintText: 'Confirm password',
+                controller: model.confirmPasswordTextController,
+              ),
+              UIHelper.verticalSpaceLarge,
+              Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: screenAwareSize(40, context, width: true),
+                ),
+                child: CustomLongButton(
+                  onTap: () async {
+                    model.signUp();
+                  },
+                  label: 'Next',
+                ),
+              ),
+              SizedBox(
+                height: screenAwareSize(25, context),
+              ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      router.Router.generateRoute(
+                          const RouteSettings(name: RoutePaths.Login)));
+                },
+                child: RichText(
+                  textAlign: TextAlign.center,
+                  text: TextSpan(
+                    text: 'Already have an account?',
+                    style: AppTextStyles.bodyRegularLight,
+                    children: [
+                      TextSpan(
+                        text: ' Sign In',
+                        style: AppTextStyles.bodyRegularBold.copyWith(
+                          color: AppColors.yellowColor,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: screenAwareSize(25, context),
+              ),
+            ],
+          ),
         ),
       ),
     );
