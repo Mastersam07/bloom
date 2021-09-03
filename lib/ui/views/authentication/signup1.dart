@@ -30,167 +30,6 @@ class _SignupEntryState extends State<SignupEntry> {
     }
   }
 
-  Widget buildPage1(SignupModel model) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        const Text(
-          'Sign up',
-          style: AppTextStyles.heading1Bold,
-        ),
-        SizedBox(
-          height: screenAwareSize(3, context),
-        ),
-        Text(
-          'Enter your phone number to start your sign up process',
-          style: AppTextStyles.bodyRegularLight.copyWith(
-            fontSize: screenAwareSize(16, context, width: true),
-          ),
-        ),
-        SizedBox(
-          height: screenAwareSize(48, context),
-        ),
-        const CustomTextFormField(
-          hintText: 'Phone number',
-        ),
-        UIHelper.verticalSpaceLarge,
-        UIHelper.verticalSpaceMedium,
-        Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: screenAwareSize(40, context, width: true),
-          ),
-          child: CustomLongButton(
-            onTap: () {
-              model.setPage(1);
-            },
-            label: 'Next',
-          ),
-        ),
-        SizedBox(
-          height: screenAwareSize(24, context),
-        ),
-        GestureDetector(
-          onTap: () {
-            Navigator.push(
-                context,
-                router.Router.generateRoute(
-                    const RouteSettings(name: RoutePaths.Login)));
-          },
-          child: RichText(
-            textAlign: TextAlign.center,
-            text: TextSpan(
-              text: 'Have an account?',
-              style: AppTextStyles.bodyRegularLight,
-              children: [
-                TextSpan(
-                  text: ' Log In',
-                  style: AppTextStyles.bodyRegularBold.copyWith(
-                    color: AppColors.yellowColor,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget buildPage2(SignupModel model) {
-    return ScrollConfiguration(
-      behavior: CustomScrollBehaviour(),
-      child: SingleChildScrollView(
-        child: ViewStateBuilder(
-          state: model.state,
-          initialWidget: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const Text(
-                'Sign up',
-                style: AppTextStyles.heading1Bold,
-              ),
-              SizedBox(
-                height: screenAwareSize(3, context),
-              ),
-              Text(
-                'Enter your phone number to start your sign up process',
-                style: AppTextStyles.bodyRegularLight.copyWith(
-                  fontSize: screenAwareSize(16, context, width: true),
-                ),
-              ),
-              SizedBox(
-                height: screenAwareSize(48, context),
-              ),
-              CustomTextFormField(
-                hintText: 'Full Name',
-                controller: model.fullNameTextController,
-              ),
-              CustomTextFormField(
-                hintText: 'Username',
-                controller: model.userNameTextController,
-              ),
-              CustomTextFormField(
-                hintText: 'Email Address',
-                controller: model.emailTextController,
-              ),
-              PasswordField(
-                hintText: 'Password',
-                controller: model.passwordTextController,
-              ),
-              PasswordField(
-                hintText: 'Confirm password',
-                controller: model.confirmPasswordTextController,
-              ),
-              UIHelper.verticalSpaceLarge,
-              Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: screenAwareSize(40, context, width: true),
-                ),
-                child: CustomLongButton(
-                  onTap: () async {
-                    model.signUp();
-                  },
-                  label: 'Next',
-                ),
-              ),
-              SizedBox(
-                height: screenAwareSize(25, context),
-              ),
-              GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      router.Router.generateRoute(
-                          const RouteSettings(name: RoutePaths.Login)));
-                },
-                child: RichText(
-                  textAlign: TextAlign.center,
-                  text: TextSpan(
-                    text: 'Already have an account?',
-                    style: AppTextStyles.bodyRegularLight,
-                    children: [
-                      TextSpan(
-                        text: ' Sign In',
-                        style: AppTextStyles.bodyRegularBold.copyWith(
-                          color: AppColors.yellowColor,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: screenAwareSize(25, context),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
   Widget buildFinalPage() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -263,28 +102,185 @@ class _SignupEntryState extends State<SignupEntry> {
             },
             child: Scaffold(
               backgroundColor: AppColors.backgroundColor,
-              body: Padding(
-                padding: EdgeInsets.only(
-                  left: screenAwareSize(30, context, width: true),
-                  right: screenAwareSize(30, context, width: true),
-                  top: screenAwareSize(49, context),
+              body: ConstrainedBox(
+                constraints: BoxConstraints.tight(MediaQuery.of(context).size),
+                child: SingleChildScrollView(
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                      left: screenAwareSize(30, context, width: true),
+                      right: screenAwareSize(30, context, width: true),
+                      top: screenAwareSize(49, context),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        PageIndicator(
+                          width: getIndicatorWidth(provider.currentPage),
+                        ),
+                        SizedBox(
+                          height: screenAwareSize(32, context),
+                        ),
+                        [
+                       Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        const Text(
+          'Sign up',
+          style: AppTextStyles.heading1Bold,
+        ),
+        SizedBox(
+          height: screenAwareSize(3, context),
+        ),
+        Text(
+          'Enter your phone number to start your sign up process',
+          style: AppTextStyles.bodyRegularLight.copyWith(
+            fontSize: screenAwareSize(16, context, width: true),
+          ),
+        ),
+        SizedBox(
+          height: screenAwareSize(48, context),
+        ),
+        const CustomTextFormField(
+          hintText: 'Phone number',
+        ),
+        UIHelper.verticalSpaceLarge,
+        UIHelper.verticalSpaceMedium,
+        Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: screenAwareSize(40, context, width: true),
+          ),
+          child: CustomLongButton(
+            onTap: () {
+              provider.setPage(1);
+            },
+            label: 'Next',
+          ),
+        ),
+        SizedBox(
+          height: screenAwareSize(24, context),
+        ),
+        GestureDetector(
+          onTap: () {
+            Navigator.push(
+                context,
+                router.Router.generateRoute(
+                    const RouteSettings(name: RoutePaths.Login)));
+          },
+          child: RichText(
+            textAlign: TextAlign.center,
+            text: TextSpan(
+              text: 'Have an account?',
+              style: AppTextStyles.bodyRegularLight,
+              children: [
+                TextSpan(
+                  text: ' Log In',
+                  style: AppTextStyles.bodyRegularBold.copyWith(
+                    color: AppColors.yellowColor,
+                  ),
                 ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    PageIndicator(
-                      width: getIndicatorWidth(provider.currentPage),
+              ],
+            ),
+          ),
+        ),
+      ],
+    ),
+                      ScrollConfiguration(
+      behavior: CustomScrollBehaviour(),
+      child: SingleChildScrollView(
+        child: ViewStateBuilder(
+          state: provider.state,
+          initialWidget: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Text(
+                'Sign up',
+                style: AppTextStyles.heading1Bold,
+              ),
+              SizedBox(
+                height: screenAwareSize(3, context),
+              ),
+              Text(
+                'Enter your phone number to start your sign up process',
+                style: AppTextStyles.bodyRegularLight.copyWith(
+                  fontSize: screenAwareSize(16, context, width: true),
+                ),
+              ),
+              SizedBox(
+                height: screenAwareSize(48, context),
+              ),
+              CustomTextFormField(
+                hintText: 'Full Name',
+                controller: provider.fullNameTextController,
+              ),
+              CustomTextFormField(
+                hintText: 'Username',
+                controller: provider.userNameTextController,
+              ),
+              CustomTextFormField(
+                hintText: 'Email Address',
+                controller: provider.emailTextController,
+              ),
+              PasswordField(
+                hintText: 'Password',
+                controller: provider.passwordTextController,
+              ),
+              PasswordField(
+                hintText: 'Confirm password',
+                controller: provider.confirmPasswordTextController,
+              ),
+              UIHelper.verticalSpaceLarge,
+              Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: screenAwareSize(40, context, width: true),
+                ),
+                child: CustomLongButton(
+                  onTap: () async {
+                    provider.signUp();
+                  },
+                  label: 'Next',
+                ),
+              ),
+              SizedBox(
+                height: screenAwareSize(25, context),
+              ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      router.Router.generateRoute(
+                          const RouteSettings(name: RoutePaths.Login)));
+                },
+                child: RichText(
+                  textAlign: TextAlign.center,
+                  text: TextSpan(
+                    text: 'Already have an account?',
+                    style: AppTextStyles.bodyRegularLight,
+                    children: [
+                      TextSpan(
+                        text: ' Sign In',
+                        style: AppTextStyles.bodyRegularBold.copyWith(
+                          color: AppColors.yellowColor,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: screenAwareSize(25, context),
+              ),
+            ],
+          ),
+        ),
+      ),
+    ),
+                          buildFinalPage(),
+                        ][provider.currentPage]
+                      ],
                     ),
-                    SizedBox(
-                      height: screenAwareSize(32, context),
-                    ),
-                    Expanded(
-                        child: [
-                      buildPage1(provider),
-                      buildPage2(provider),
-                      buildFinalPage(),
-                    ][provider.currentPage])
-                  ],
+                  ),
                 ),
               ),
             ),

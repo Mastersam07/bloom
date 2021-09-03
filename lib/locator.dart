@@ -21,9 +21,9 @@ void setupLocator() {
   locator.registerLazySingleton<NavigationService>(() => NavigationService());
 
   /// register viewmodels
-  locator.registerFactory<LoginModel>(() => LoginModel(locator()));
-  locator.registerFactory<SignupModel>(() => SignupModel(locator()));
-  locator.registerFactory<PaymentModel>(() => PaymentModel());
+  locator.registerLazySingleton<LoginModel>(() => LoginModel(locator()));
+  locator.registerLazySingleton<SignupModel>(() => SignupModel(locator()));
+  locator.registerLazySingleton<PaymentModel>(() => PaymentModel());
 }
 
 final allProviders = <SingleChildWidget>[

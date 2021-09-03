@@ -23,6 +23,7 @@ class SignupModel extends BaseModel {
 
   Future<void> signUp() async {
     setState(viewState: ViewState.Busy);
+    print(passwordTextController.text);
     final registerResponse = await auth.register(
       UserModel(
         email: emailTextController.text,

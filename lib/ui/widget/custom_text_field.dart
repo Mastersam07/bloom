@@ -23,6 +23,7 @@ class CustomTextFormField extends StatelessWidget {
       padding: EdgeInsets.only(bottom: screenAwareSize(32, context)),
       child: TextFormField(
         obscureText: obscure,
+        controller: controller,
         decoration: InputDecoration(
           hintText: hintText,
           hintStyle: AppTextStyles.bodyRegularMedium.copyWith(
