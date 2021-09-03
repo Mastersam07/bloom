@@ -1,6 +1,10 @@
+import 'package:bloom/core/views/view_state_builder.dart';
 import 'package:flutter/material.dart';
 
 import '../../../core/constants/app_constants.dart';
+import '../../../core/viewmodels/signup_model.dart';
+import '../../../core/views/view_builder.dart';
+import '../../../locator.dart';
 import '../../router.dart' as router;
 import '../../shared/colors.dart';
 import '../../shared/styles.dart';
@@ -16,8 +20,7 @@ class SignupEntry extends StatefulWidget {
 }
 
 class _SignupEntryState extends State<SignupEntry> {
-  int pageIndex = 0;
-  double getIndicatorWidth() {
+  double getIndicatorWidth(int pageIndex) {
     if (pageIndex == 0) {
       return 118.0;
     } else if (pageIndex == 1) {
@@ -25,167 +28,6 @@ class _SignupEntryState extends State<SignupEntry> {
     } else {
       return 118 * 3.0;
     }
-  }
-
-  Widget buildPage1() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        const Text(
-          'Sign up',
-          style: AppTextStyles.heading1Bold,
-        ),
-        SizedBox(
-          height: screenAwareSize(3, context),
-        ),
-        Text(
-          'Enter your phone number to start your sign up process',
-          style: AppTextStyles.bodyRegularLight.copyWith(
-            fontSize: screenAwareSize(16, context, width: true),
-          ),
-        ),
-        SizedBox(
-          height: screenAwareSize(48, context),
-        ),
-        //:todo phoneNumber field goes here
-        UIHelper.verticalSpaceLarge,
-        UIHelper.verticalSpaceMedium,
-        Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: screenAwareSize(40, context, width: true),
-          ),
-          child: CustomLongButton(
-            onTap: () {
-              setState(() {
-                pageIndex = 1;
-              });
-            },
-            label: 'Next',
-          ),
-        ),
-        SizedBox(
-          height: screenAwareSize(24, context),
-        ),
-        GestureDetector(
-          onTap: () {
-            Navigator.push(
-                context,
-                router.Router.generateRoute(
-                    const RouteSettings(name: RoutePaths.Login)));
-          },
-          child: RichText(
-            textAlign: TextAlign.center,
-            text: TextSpan(
-              text: 'Have an account?',
-              style: AppTextStyles.bodyRegularLight,
-              children: [
-                TextSpan(
-                  text: ' Log In',
-                  style: AppTextStyles.bodyRegularBold.copyWith(
-                    color: AppColors.yellowColor,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget buildPage2() {
-    return ScrollConfiguration(
-      behavior: CustomScrollBehaviour(),
-      child: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const Text(
-              'Sign up',
-              style: AppTextStyles.heading1Bold,
-            ),
-            SizedBox(
-              height: screenAwareSize(3, context),
-            ),
-            Text(
-              'Enter your phone number to start your sign up process',
-              style: AppTextStyles.bodyRegularLight.copyWith(
-                fontSize: screenAwareSize(16, context, width: true),
-              ),
-            ),
-            SizedBox(
-              height: screenAwareSize(48, context),
-            ),
-            const CustomTextFormField(
-              hintText: 'Fullname',
-            ),
-            const CustomTextFormField(
-              hintText: 'Username',
-            ),
-            const CustomTextFormField(
-              hintText: 'Email Address',
-            ),
-            const PasswordField(
-              hintText: 'Password',
-            ),
-            const PasswordField(
-              hintText: 'Confirm password',
-            ),
-            UIHelper.verticalSpaceLarge,
-            Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: screenAwareSize(40, context, width: true),
-              ),
-              child: CustomLongButton(
-                onTap: () async {
-                  setState(() {
-                    pageIndex = 2;
-                  });
-                  Future.delayed(const Duration(seconds: 2), () {
-                    Navigator.push(
-                        context,
-                        router.Router.generateRoute(
-                            const RouteSettings(name: RoutePaths.Login)));
-                  });
-                },
-                label: 'Next',
-              ),
-            ),
-            SizedBox(
-              height: screenAwareSize(25, context),
-            ),
-            GestureDetector(
-              onTap: () {
-                Navigator.push(
-                    context,
-                    router.Router.generateRoute(
-                        const RouteSettings(name: RoutePaths.Login)));
-              },
-              child: RichText(
-                textAlign: TextAlign.center,
-                text: TextSpan(
-                  text: 'Already have an account?',
-                  style: AppTextStyles.bodyRegularLight,
-                  children: [
-                    TextSpan(
-                      text: ' Sign In',
-                      style: AppTextStyles.bodyRegularBold.copyWith(
-                        color: AppColors.yellowColor,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            SizedBox(
-              height: screenAwareSize(25, context),
-            ),
-          ],
-        ),
-      ),
-    );
   }
 
   Widget buildFinalPage() {
@@ -238,7 +80,7 @@ class _SignupEntryState extends State<SignupEntry> {
     );
   }
 
-  Future<bool> popScope() async {
+  Future<bool> popScope(int pageIndex) async {
     if (pageIndex == 0) {
       return true;
     } else {
@@ -251,36 +93,199 @@ class _SignupEntryState extends State<SignupEntry> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: popScope,
-      child: Scaffold(
-        backgroundColor: AppColors.backgroundColor,
-        body: Padding(
-          padding: EdgeInsets.only(
-            left: screenAwareSize(30, context, width: true),
-            right: screenAwareSize(30, context, width: true),
-            top: screenAwareSize(49, context),
+    return BaseViewBuilder<SignupModel>(
+        model: locator(),
+        builder: (provider, child) {
+          return WillPopScope(
+            onWillPop: () async {
+              return popScope(provider.currentPage);
+            },
+            child: Scaffold(
+              backgroundColor: AppColors.backgroundColor,
+              body: ConstrainedBox(
+                constraints: BoxConstraints.tight(MediaQuery.of(context).size),
+                child: SingleChildScrollView(
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                      left: screenAwareSize(30, context, width: true),
+                      right: screenAwareSize(30, context, width: true),
+                      top: screenAwareSize(49, context),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        PageIndicator(
+                          width: getIndicatorWidth(provider.currentPage),
+                        ),
+                        SizedBox(
+                          height: screenAwareSize(32, context),
+                        ),
+                        [
+                       Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        const Text(
+          'Sign up',
+          style: AppTextStyles.heading1Bold,
+        ),
+        SizedBox(
+          height: screenAwareSize(3, context),
+        ),
+        Text(
+          'Enter your phone number to start your sign up process',
+          style: AppTextStyles.bodyRegularLight.copyWith(
+            fontSize: screenAwareSize(16, context, width: true),
           ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+        ),
+        SizedBox(
+          height: screenAwareSize(48, context),
+        ),
+        const CustomTextFormField(
+          hintText: 'Phone number',
+        ),
+        UIHelper.verticalSpaceLarge,
+        UIHelper.verticalSpaceMedium,
+        Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: screenAwareSize(40, context, width: true),
+          ),
+          child: CustomLongButton(
+            onTap: () {
+              provider.setPage(1);
+            },
+            label: 'Next',
+          ),
+        ),
+        SizedBox(
+          height: screenAwareSize(24, context),
+        ),
+        GestureDetector(
+          onTap: () {
+            Navigator.push(
+                context,
+                router.Router.generateRoute(
+                    const RouteSettings(name: RoutePaths.Login)));
+          },
+          child: RichText(
+            textAlign: TextAlign.center,
+            text: TextSpan(
+              text: 'Have an account?',
+              style: AppTextStyles.bodyRegularLight,
+              children: [
+                TextSpan(
+                  text: ' Log In',
+                  style: AppTextStyles.bodyRegularBold.copyWith(
+                    color: AppColors.yellowColor,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
+    ),
+                      ScrollConfiguration(
+      behavior: CustomScrollBehaviour(),
+      child: SingleChildScrollView(
+        child: ViewStateBuilder(
+          state: provider.state,
+          initialWidget: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            mainAxisSize: MainAxisSize.min,
             children: [
-              PageIndicator(
-                width: getIndicatorWidth(),
+              const Text(
+                'Sign up',
+                style: AppTextStyles.heading1Bold,
               ),
               SizedBox(
-                height: screenAwareSize(32, context),
+                height: screenAwareSize(3, context),
               ),
-              Expanded(
-                  child: [
-                buildPage1(),
-                buildPage2(),
-                buildFinalPage(),
-              ][pageIndex])
+              Text(
+                'Enter your phone number to start your sign up process',
+                style: AppTextStyles.bodyRegularLight.copyWith(
+                  fontSize: screenAwareSize(16, context, width: true),
+                ),
+              ),
+              SizedBox(
+                height: screenAwareSize(48, context),
+              ),
+              CustomTextFormField(
+                hintText: 'Full Name',
+                controller: provider.fullNameTextController,
+              ),
+              CustomTextFormField(
+                hintText: 'Username',
+                controller: provider.userNameTextController,
+              ),
+              CustomTextFormField(
+                hintText: 'Email Address',
+                controller: provider.emailTextController,
+              ),
+              PasswordField(
+                hintText: 'Password',
+                controller: provider.passwordTextController,
+              ),
+              PasswordField(
+                hintText: 'Confirm password',
+                controller: provider.confirmPasswordTextController,
+              ),
+              UIHelper.verticalSpaceLarge,
+              Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: screenAwareSize(40, context, width: true),
+                ),
+                child: CustomLongButton(
+                  onTap: () async {
+                    provider.signUp();
+                  },
+                  label: 'Next',
+                ),
+              ),
+              SizedBox(
+                height: screenAwareSize(25, context),
+              ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      router.Router.generateRoute(
+                          const RouteSettings(name: RoutePaths.Login)));
+                },
+                child: RichText(
+                  textAlign: TextAlign.center,
+                  text: TextSpan(
+                    text: 'Already have an account?',
+                    style: AppTextStyles.bodyRegularLight,
+                    children: [
+                      TextSpan(
+                        text: ' Sign In',
+                        style: AppTextStyles.bodyRegularBold.copyWith(
+                          color: AppColors.yellowColor,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: screenAwareSize(25, context),
+              ),
             ],
           ),
         ),
       ),
-    );
+    ),
+                          buildFinalPage(),
+                        ][provider.currentPage]
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          );
+        });
   }
 }
 

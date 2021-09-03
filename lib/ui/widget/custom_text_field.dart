@@ -1,7 +1,8 @@
+import 'package:flutter/material.dart';
+
 import '../shared/colors.dart';
 import '../shared/styles.dart';
 import '../shared/ui_helpers.dart';
-import 'package:flutter/material.dart';
 
 class CustomTextFormField extends StatelessWidget {
   final String hintText;
@@ -22,6 +23,7 @@ class CustomTextFormField extends StatelessWidget {
       padding: EdgeInsets.only(bottom: screenAwareSize(32, context)),
       child: TextFormField(
         obscureText: obscure,
+        controller: controller,
         decoration: InputDecoration(
           hintText: hintText,
           hintStyle: AppTextStyles.bodyRegularMedium.copyWith(
@@ -42,8 +44,10 @@ class CustomTextFormField extends StatelessWidget {
 
 class PasswordField extends StatefulWidget {
   final String hintText;
+  final TextEditingController controller;
 
-  const PasswordField({Key key, this.hintText}) : super(key: key);
+  const PasswordField({Key key, this.hintText, this.controller})
+      : super(key: key);
   @override
   _PasswordFieldState createState() => _PasswordFieldState();
 }
@@ -61,6 +65,7 @@ class _PasswordFieldState extends State<PasswordField> {
     return CustomTextFormField(
       obscure: obscure,
       hintText: widget.hintText,
+      controller: widget.controller,
       suffixIcon: obscure
           ? GestureDetector(
               onTap: switchObscureIcon, child: const Icon(Icons.visibility))

@@ -1,1 +1,1 @@
-enum ViewState { Idle, Busy, Error, Retrieved }
+enum ViewState { Idle, Busy, Error, Retrieved, NoInternet }
